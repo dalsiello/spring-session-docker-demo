@@ -1,26 +1,28 @@
-db:
-  image: redis:3.0.3
-  hostname: redis
-  ports:
-    - "6379:6379"
-app1:
-    build: app
-    links:
-      - "db:redis"
-app2:
-    build: app
-    links:
-      - "db:redis"
-app3:
-    build: app
-    links:
-      - "db:redis"
-haproxy:
-    image: tutum/haproxy:0.2
+version: "3.9"
+
+services:
+  db:
+    image: redis:alpine
+    hostname: redis
     ports:
-      - "80:80"
-      - "1936:1936"
-    links:
-        - app1
-        - app2
-        - app3
+      - "6379:6379"
+  app:
+    image: app
+    deploy:
+      mode: replicated
+      replicas: 3
+    ports:
+      - "80:8080"
+
+#  local_storage:
+#    image: mcr.microsoft.com/azure-blob-storage
+#    ports:
+#      - 10000:10000
+#      - 10001:10001
+#  local_functions:
+#    image: mcr.microsoft.com/azure-functions/java:4-java8
+#    hostname: afunctions
+#    ports:
+#      - 8080:80
+#    depends_on:
+#      - local.storage.emulator

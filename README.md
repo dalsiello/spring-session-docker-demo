@@ -47,3 +47,9 @@ $ docker-machine ip dev
 Now we know the ip address on which the container host is running. This is important because HAProxy is exposed on port 80 of the host.
 
 Now you can connect to http://[DOCKER_HOST]/ and you should see the app.
+
+------
+
+docker build -t app .
+docker stack deploy --compose-file docker-compose.yml spring
+docker stack rm spring

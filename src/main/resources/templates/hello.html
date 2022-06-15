@@ -13,7 +13,8 @@
     <div class="jumbotron">
         <div class="container">
             <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-            <h2 th:inline="text">You are currently on server with name: [[${host}]]</h2>
+            <h2 th:inline="text">You are currently on server with name: [[${host}]] - [[${ip}]]</h2>
+            <h2 th:inline="text">First host name: [[${firsthost}]]</h2>
             <form th:action="@{/logout}" method="post">
                 <input type="submit" value="Sign Out »" class="btn btn-primary btn-lg"/>
             </form>
